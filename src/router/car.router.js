@@ -4,6 +4,10 @@ import { uploadCar,getCars,deleteCar,getCar } from "../controller/car.controller
 
 const router=Router();
 
+router.get("/",(req,res)=>{
+    res.send("car router");
+});
+
 router.route("/uploadCar").post(upload.single("image"),uploadCar);
 router.route("/getCars").get(getCars);
 router.route("/getCar").post(getCar);
