@@ -10,7 +10,7 @@ import {router as addressRouter} from "./router/address.router.js";
 const app = express();
 
 const corsOptions = {
-    origin: "http://localhost:5173",
+    origin: ["http://localhost:5173","https://www.driveezz.in"],
     methods: "GET, POST, PUT, DELETE, PATCH, HEAD",
     credentials: true,
   };
