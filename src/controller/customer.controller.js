@@ -75,9 +75,9 @@ export const sendEmail = async (req, res) => {
         from: process.env.EMAIL_USER,
         to: customerEmail,
         subject: "Your Booking Confirmation",
-        text: `Dear ${bookingDetails.name},\n\nYour booking details are as follows:\nCar Name: ${bookingDetails.carName}\nPickup Date: ${bookingDetails.pickupDate}\nPickup Address: ${bookingDetails.pickupAddress}\nDropoff Date: ${bookingDetails.dropoffDate}\nDropoff Address: ${bookingDetails.dropoffAddress}\n\nThank you for choosing us!`
+        text: `Dear ${bookingDetails.name},\n\nYour booking details are as follows:\nCar Name: ${bookingDetails.carName}\nPickup Date: ${bookingDetails.pickupDate}\nPickup Address: ${bookingDetails.pickupAddress}\nDropoff Date: ${bookingDetails.dropoffDate}\nDropoff Address: ${bookingDetails.dropoffAddress}\n\nPlease note, if you are unable to reach our location for pickup or dropoff, an additional charge of Rs.200 per Pickup/Drop-off will apply.\n\nThank you for choosing us!`
       });
-    }
+    }    
 
     async function sendOwnerBookingEmail(ownerEmail, bookingDetails) {
       const info = await transporter.sendMail({
