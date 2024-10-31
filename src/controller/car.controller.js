@@ -51,10 +51,32 @@ export const uploadCar = asyncHandler(async (req, res) => {
 
 });
 
-export const getCars = asyncHandler(async (req, res) => {
-    const cars = await Car.find();
-    return res.status(200).json(new ApiResponse(200,cars,"List of all the cars"));
+export const getAllCars = asyncHandler(async (req, res) => {
+  const cars = await Car.find({});
+  return res.status(200).json(new ApiResponse(200,cars,"List of all the cars"));
 });
+
+export const getCars = asyncHandler(async (req, res) => {
+  const { pageToLoad = 1, searchTerm = "" } = req.body;
+  const limit = 4;
+  const page =pageToLoad;
+
+  
+  const totalCars = await Car.countDocuments({
+    carName: { $regex: searchTerm, $options: "i" },
+  });
+
+  const cars = await Car.find({
+    carName: { $regex: searchTerm, $options: "i" },
+  })
+    .sort({ createdAt: -1 })
+    .skip((page - 1) * limit)
+    .limit(limit);
+
+  const totalPages = Math.ceil(totalCars / limit);
+  return res.status(200).json(new ApiResponse(200,{cars,totalPages},"List of all the cars"));
+});
+
 
 export const getCar = asyncHandler(async (req, res) => {
     const {id} = req.body;
