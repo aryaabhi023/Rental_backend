@@ -62,13 +62,16 @@ export const getCars = asyncHandler(async (req, res) => {
   const page =pageToLoad;
 
   
-  const totalCars = await Car.countDocuments({
-    carName: { $regex: searchTerm, $options: "i" },
-  });
+  const searchCriteria = {
+    $or: [
+      { carName: { $regex: searchTerm, $options: "i" } },
+      { model: { $regex: searchTerm, $options: "i" } },
+    ],
+  };
 
-  const cars = await Car.find({
-    carName: { $regex: searchTerm, $options: "i" },
-  })
+  const totalCars = await Car.countDocuments(searchCriteria);
+  
+  const cars = await Car.find(searchCriteria)
     .sort({ createdAt: -1 })
     .skip((page - 1) * limit)
     .limit(limit);
