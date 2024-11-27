@@ -20,7 +20,7 @@ export const getCodes=asyncHandler(async(req,res)=>{
 });
 
 export const updateCode=asyncHandler(async(req,res)=>{
-    const id='66df5e879ea137589c03dcec';
+    const id='6702801a0f9f8e2fcef0ed7e';
     const code=await Code.findById(id);
     if(!code){
         throw new ApiError(400,"Code not found");
